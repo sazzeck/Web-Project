@@ -14,12 +14,12 @@ header {
 
 #navigation {
     width: 100%;
-    height: 5%;
+    height: 10%;
     background-color: black;
 }
 
 #navigation .container {
-    height: inherit;
+    height: 10%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -41,10 +41,12 @@ header {
     font-size: 40px;
     text-decoration: none;
     color: white;
+    transition: all .5s ease;
 }
 
 .navigation-title:hover {
     color: #D34B81;
+    text-shadow: 0 0 10px rgba(209, 102, 236, 1);
 }
 
 .navigation-menu {
@@ -65,14 +67,34 @@ header {
     text-decoration: none;
     font-size: 18px;
     color: white;
+    transition: all .5s ease;
 }
 
 .navigation-aunth {
     display: flex;
     align-items: center;
+    background-color: #D34B81;
+    border-radius: 10px;
+    padding-right: 20px;
+    padding-left: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
     margin-left: 20px;
     margin-right: 20px;
     text-decoration: none;
     font-size: 20px;
     color: white;
+    transition: all .5s ease;
+}
+
+.navigation-aunth:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(211, 75, 129, 1);
+}
+
+.navigation-menu li:hover, .navigation-menu li a:hover {
+    text-decoration: none;
+    transform: scale(1.1);
+    color: #D34B81;
+    text-shadow: 0 0 15px rgba(209, 102, 236, 1);
 }
