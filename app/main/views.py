@@ -10,10 +10,6 @@ def test_page(request):
     return render(request, "main/test.html", {"title": "Test"})
 
 
-def authentication(request):
-    return render(request, "main/auth.html", {"title": "Authentication"})
-
-
 def login_page(request):
     return render(request, "main/login.html", {"title": "Login"})
 
