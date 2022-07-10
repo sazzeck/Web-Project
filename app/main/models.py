@@ -7,20 +7,32 @@ user_model = settings.AUTH_USER_MODEL
 
 
 class Services(models.Model):
-    name = models.CharField(max_length=100, db_index=True, verbose_name="Название")
-    parent = models.ForeignKey("self", on_delete=models.PROTECT, null=True, blank=True)
+    name = models.CharField(
+        max_length=100,
+        verbose_name="Service",
+    )
 
     class Meta:
-        verbose_name = "Услуга"
-        verbose_name_plural = "Услуги"
+        verbose_name = "Service"
+        verbose_name_plural = "Services"
 
     def __str__(self):
-        return f"{self.name} | {self.parent}" if self.parent else self.name
+        return f"{self.name}"
 
-    @classmethod
-    def get_default_service(cls):
-        obj, created = cls.objects.get_or_create(name="Не предостовялет услуги")
-        return obj.pk
+
+class Location(models.Model):
+    name = models.CharField(
+        max_length=150,
+        primary_key=True,
+        verbose_name="Location"
+    )
+
+    class Meta:
+        verbose_name = "Location"
+        verbose_name_plural = "Locations"
+
+    def __str__(self):
+        return f"{self.name}"
 
 
 class Worker(models.Model):
@@ -28,28 +40,51 @@ class Worker(models.Model):
         user_model,
         on_delete=models.CASCADE,
         primary_key=True,
-        verbose_name="Пользователь",
-        related_name="uworker"
-    )
-    service = models.ForeignKey(
-        "Services",
-        on_delete=models.SET_DEFAULT,
-        default=Services.get_default_service,
-        verbose_name="Услуга",
+        verbose_name="Worker",
+        related_name="user_worker"
     )
     location = models.OneToOneField(
         "Location",
         on_delete=models.PROTECT,
-        verbose_name="Локация",
-        related_name="lworker",
+        verbose_name="Location",
+        related_name="location_worker"
+    )
+    service = models.ForeignKey(
+        "Services",
+        on_delete=models.PROTECT,
+        verbose_name="Service",
     )
 
     class Meta:
-        verbose_name = "Специалист"
-        verbose_name_plural = "Специалисты"
+        verbose_name = "Worker"
+        verbose_name_plural = "Workers"
 
     def __str__(self):
-        return f"{self.user} ({self.service})"
+        return f"{self.user} (Service: {self.service} | Location: {self.location})"
+
+
+class ScheduleWork(models.Model):
+    worker = models.OneToOneField(
+        "Worker",
+        on_delete=models.CASCADE,
+        primary_key=True,
+        verbose_name="Worker"
+    )
+    start_work = models.TimeField(
+        default=None,
+        verbose_name="Begining of the work day"
+    )
+    end_work = models.TimeField(
+        default=None,
+        verbose_name="End of the working day"
+    )
+
+    class Meta:
+        verbose_name = "Schedule Work"
+        verbose_name_plural = "Schedule Work"
+
+    def __str__(self):
+        return f"{self.worker} ({self.start_work} - {self.end_work})"
 
 
 class Customer(models.Model):
@@ -57,47 +92,19 @@ class Customer(models.Model):
         user_model,
         on_delete=models.CASCADE,
         primary_key=True,
-        verbose_name="Пользователь",
+        verbose_name="Customer"
     )
 
     class Meta:
-        verbose_name = "Клиент"
-        verbose_name_plural = "Клиенты"
+        verbose_name = "Customer"
+        verbose_name_plural = "Customers"
 
     def __str__(self):
         return f"{self.user}"
 
 
-class Location(models.Model):
-    name = models.CharField(max_length=100, db_index=True, verbose_name="Название")
-
-    class Meta:
-        verbose_name = "Локация"
-        verbose_name_plural = "Локации"
-
-    def __str__(self):
-        return f"{self.name}"
-
-
-class ScheduleWork(models.Model):
-    worker = models.OneToOneField(
-        "Worker", on_delete=models.CASCADE, verbose_name="Специалист"
-    )
-    start_work = models.TimeField(default=None, verbose_name="Начало рабочего дня")
-    end_work = models.TimeField(default=None, verbose_name="Конец рабочего дня")
-
-    class Meta:
-        verbose_name = "Время работы"
-        verbose_name_plural = "Время работы"
-
-    def __str__(self):
-        return f"{self.worker} ({self.start_work} - {self.end_work})"
-
-
 # class Appointment(models.Model):
-#     worker = models.OneToOneField(Worker, on_delete=models.PROTECT)
-#     customer = models.ForeingKey(Customer, on_delete=models.PROTECT)
-#     start_book = models.TimeField()
-#     end_book = models.TimeField()
-#     day_of_week = None
-#     month = None
+#     customer = None,
+#     worker = None,
+#     start_book = None,
+#     end_book = None,
