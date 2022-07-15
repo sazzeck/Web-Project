@@ -7,10 +7,31 @@ from django.utils.translation import gettext_lazy as _
 user_model = settings.AUTH_USER_MODEL
 
 
-class Services(models.Model):
-    name = models.CharField(
-        max_length=100,
-        verbose_name="Service",
+class Location(models.Model):
+    place = models.CharField(
+        max_length=64,
+        primary_key=True,
+        verbose_name="Place"
+    )
+
+    class Meta:
+        verbose_name = "Location"
+        verbose_name_plural = "Locations"
+
+    def __str__(self):
+        return f"Location: {self.place}"
+
+
+class Service(models.Model):
+    location = models.OneToOneField(
+        "Location",
+        on_delete=models.CASCADE,
+        verbose_name="Location"
+    )
+
+    service = models.CharField(
+        max_length=64,
+        verbose_name="Name"
     )
 
     class Meta:
@@ -18,18 +39,7 @@ class Services(models.Model):
         verbose_name_plural = "Services"
 
     def __str__(self):
-        return f"{self.name}"
-
-
-class Location(models.Model):
-    name = models.CharField(max_length=150, primary_key=True, verbose_name="Location")
-
-    class Meta:
-        verbose_name = "Location"
-        verbose_name_plural = "Locations"
-
-    def __str__(self):
-        return f"{self.name}"
+        return f"{self.service} ({self.location})"
 
 
 class Worker(models.Model):
@@ -37,19 +47,13 @@ class Worker(models.Model):
         user_model,
         on_delete=models.CASCADE,
         primary_key=True,
-        verbose_name="Worker",
-        related_name="user_worker",
-    )
-    location = models.OneToOneField(
-        "Location",
-        on_delete=models.PROTECT,
-        verbose_name="Location",
-        related_name="location_worker",
-    )
+        verbose_name="User"
+        )
+
     service = models.ForeignKey(
-        "Services",
-        on_delete=models.PROTECT,
-        verbose_name="Service",
+        "Service",
+        on_delete=models.CASCADE,
+        verbose_name="Service"
     )
 
     class Meta:
@@ -57,74 +61,45 @@ class Worker(models.Model):
         verbose_name_plural = "Workers"
 
     def __str__(self):
-        return f"{self.user} (Service: {self.service} | Location: {self.location})"
+        return f"{self.user} | Service: {self.service}"
 
 
-class ScheduleWork(models.Model):
-    worker = models.OneToOneField(
-        "Worker", on_delete=models.CASCADE, primary_key=True, verbose_name="Worker"
-    )
-    start_work = models.TimeField(default=None, verbose_name="Begining of the work day")
-    end_work = models.TimeField(default=None, verbose_name="End of the working day")
-
-    class Meta:
-        verbose_name = "Schedule Work"
-        verbose_name_plural = "Schedule Work"
-
-    def __str__(self):
-        return f"{self.worker} ({self.start_work} - {self.end_work})"
-
-
-class Customer(models.Model):
-    user = models.OneToOneField(
-        user_model, on_delete=models.CASCADE, primary_key=True, verbose_name="Customer"
-    )
-
-    class Meta:
-        verbose_name = "Customer"
-        verbose_name_plural = "Customers"
-
-    def __str__(self):
-        return f"{self.user}"
-
-
-class Appointment(models.Model):
-
-    customer = models.ForeignKey(
-        "Customer", on_delete=models.CASCADE, verbose_name="Customer"
-    )
+class Schedule(models.Model):
     worker = models.ForeignKey(
         "Worker",
         on_delete=models.CASCADE,
-        verbose_name="Worker",
-    )
-    start_book = models.TimeField(
-        unique=True,
-        verbose_name="Start book",
-    )
-    end_book = models.TimeField(
-        unique=True,
-        verbose_name="End book",
+        verbose_name="Worker"
     )
 
-    class DayOfTheWeekChoices(models.IntegerChoices):
-        MO = 1, _("Monday")
-        TU = 2, _("Tuesday")
-        WE = 3, _("Wednesday")
-        TH = 4, _("Thursday")
-        FR = 5, _("Friday")
-        SA = 6, _("Saturday")
-        SU = 7, _("Sunday")
+    start_time = models.TimeField(
+        unique=True,
+        verbose_name="Start work"
+    )
 
-    day_of_the_week = models.PositiveSmallIntegerField(
+    end_time = models.TimeField(
+        unique=True,
+        verbose_name="End work"
+    )
+
+    class DayOfTheWeekChoices(models.TextChoices):
+        MONDAY = "Mon", _("Monday")
+        TUESDAY = "Tue", _("Tuesday")
+        WEDNESDAY = "Wed", _("Wednesday")
+        THURSDAY = "Thu", _("Thursday")
+        FRIDAY = "Fri", _("Friday")
+        SATURDAY = "Sat", _("Saturday")
+        SUNDAY = "Sun", _("Sunday")
+
+    day_of_the_week = models.CharField(
+        max_length=3,
         choices=DayOfTheWeekChoices.choices,
-        verbose_name="Day of the week",
+        default=DayOfTheWeekChoices.MONDAY,
+        verbose_name="Working day"
     )
 
     class Meta:
-        verbose_name = "Appointment"
-        verbose_name_plural = "Apointments"
-        ordering = ["id"]
+        verbose_name = "Schedule"
+        verbose_name_plural = "Schedule"
 
     def __str__(self):
-        return f"{self.customer}: {self.worker} | {self.day_of_the_week} ({self.start_book} - {self.end_book})"
+        return f"{self.worker} | Day: {self.day_of_the_week} ({self.start_time} - {self.end_time})"
