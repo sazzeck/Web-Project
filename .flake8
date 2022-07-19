@@ -1,5 +1,8 @@
 [flake8]
 
+ignore =
+    F403,   # unable to detect undefined names
+
 max-complexity = 15
 
 max-function-length = 120
