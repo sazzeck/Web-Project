@@ -2,16 +2,24 @@ from django.db import models
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 
-# Create your models here.
 
 user_model = settings.AUTH_USER_MODEL
 
 
 class Location(models.Model):
-    place = models.CharField(
-        max_length=64,
-        primary_key=True,
-        verbose_name="Place"
+    name = models.CharField(
+        max_length=40,
+        verbose_name="Name"
+        )
+
+    city = models.CharField(
+        max_length=85,
+        verbose_name="City"
+    )
+
+    address = models.CharField(
+        max_length=170,
+        verbose_name="Address"
     )
 
     class Meta:
@@ -19,16 +27,10 @@ class Location(models.Model):
         verbose_name_plural = "Locations"
 
     def __str__(self):
-        return f"Location: {self.place}"
+        return f"{self.name} - {self.city}, {self.address}"
 
 
 class Service(models.Model):
-    location = models.OneToOneField(
-        "Location",
-        on_delete=models.CASCADE,
-        verbose_name="Location"
-    )
-
     service = models.CharField(
         max_length=64,
         verbose_name="Name"
@@ -39,7 +41,7 @@ class Service(models.Model):
         verbose_name_plural = "Services"
 
     def __str__(self):
-        return f"{self.service} ({self.location})"
+        return f"{self.service}"
 
 
 class Worker(models.Model):
@@ -50,27 +52,15 @@ class Worker(models.Model):
         verbose_name="User"
         )
 
-    service = models.ForeignKey(
-        "Service",
-        on_delete=models.CASCADE,
-        verbose_name="Service"
-    )
-
     class Meta:
         verbose_name = "Worker"
         verbose_name_plural = "Workers"
 
     def __str__(self):
-        return f"{self.user} | Service: {self.service}"
+        return f"{self.user}"
 
 
 class Schedule(models.Model):
-    worker = models.ForeignKey(
-        "Worker",
-        on_delete=models.CASCADE,
-        verbose_name="Worker"
-    )
-
     start_time = models.TimeField(
         unique=True,
         verbose_name="Start work"
@@ -102,4 +92,4 @@ class Schedule(models.Model):
         verbose_name_plural = "Schedule"
 
     def __str__(self):
-        return f"{self.worker} | Day: {self.day_of_the_week} ({self.start_time} - {self.end_time})"
+        return f"{self.day_of_the_week} ({self.start_time} - {self.end_time})"
