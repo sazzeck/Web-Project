@@ -1,5 +1,7 @@
+from django.contrib.auth import logout, login
 from django.contrib.auth.views import LoginView
 from django.views.generic import CreateView
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from .forms import RegisterUserForm, LoginUserForm
 
@@ -26,3 +28,13 @@ class RegisterUser(CreateView):
         context = super().get_context_data(**kwargs)
         context["title"] = "Registeration"
         return context
+
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user)
+        return redirect("main")
+
+
+def singout_user(request):
+    logout(request)
+    return redirect("main")

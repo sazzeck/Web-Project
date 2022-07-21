@@ -17,12 +17,15 @@
         <div class="container">
             <a href="{%url 'main'%}" class="navigation-title">{{title}}</a>
             <div class="navigation-wrap">
-                <ul class="navigation-menu">
-                    <li><a href="{%url 'test'%}">link</a></li>
-                    <li><a href="{%url 'test'%}">link</a></li>
-                    <li><a href="{%url 'test'%}">link</a></li>
-                </ul>
-                {%block authentication%}{%endblock%}
+                {%if request.user.is_authenticated%}
+                    <ul class="navigation-menu">
+                        <li><p>{{user.username}}</p></li>
+                    </ul>
+                    <a href="{%url 'sing_out'%}" class="navigation-aunth">Sing out</a>
+                {%else%}
+                    <a href="{%url 'sing_in'%}" class="navigation-aunth">Sing in</a>
+                    <a href="{%url 'sing_up'%}" class="navigation-aunth">Sing Up</a>
+                {%endif%}
             </div>
         </div>
     </nav>

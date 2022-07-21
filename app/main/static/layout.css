@@ -38,6 +38,7 @@ header {
     flex-flow: row nowrap;
     margin-right: 20px;
     margin-left: 20px;
+    align-items: center;
 }
 
 .navigation-title{
@@ -69,6 +70,16 @@ header {
     margin-right: 10px;
     margin-left: 10px;
 }
+
+.navigation-menu li p {
+    display: inline-block;
+    text-decoration: none;
+    font-size: 18px;
+    color: white;
+    transition: all .5s ease;
+    margin: 0;
+}
+
 
 .navigation-menu li a {
     display: inline-block;
@@ -102,7 +113,7 @@ header {
     box-shadow: 0 0 15px rgba(82, 128, 115, 1);
 }
 
-.navigation-menu li:hover, .navigation-menu li a:hover {
+.navigation-menu li a:hover {
     text-decoration: none;
     transform: scale(1.1);
     color: #528073;
