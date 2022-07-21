@@ -89,45 +89,7 @@ header {
     transition: all .5s ease;
 }
 
-#button-sumbit {
-    display: flex;
-    align-items: center;
-    background-color: #528073;
-    border-radius: 10px;
-    padding-right: 20px;
-    padding-left: 20px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    margin-right: 10px;
-    margin-left: 10px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    text-decoration: none;
-    font-size: 20px;
-    color: white;
-    transition: all .5s ease;
-}
-
-#button-cancel {
-    display: flex;
-    align-items: center;
-    background-color: #528073;
-    border-radius: 10px;
-    padding-right: 20px;
-    padding-left: 20px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    margin-right: 10px;
-    margin-left: 10px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    text-decoration: none;
-    font-size: 20px;
-    color: white;
-    transition: all .5s ease;
-}
-
-.navigation-aunth {
+.navigation-aunth, #button-cancel, #button-sumbit {
     display: flex;
     align-items: center;
     background-color: #528073;
