@@ -21,10 +21,10 @@
                     <ul class="navigation-menu">
                         <li><p>{{user.username}}</p></li>
                     </ul>
-                    <a href="{%url 'sing_out'%}" class="navigation-aunth">Sing out</a>
+                    <a href="{%url 'sing_out'%}" id="button-cancel">Sing out</a>
                 {%else%}
-                    <a href="{%url 'sing_in'%}" class="navigation-aunth">Sing in</a>
-                    <a href="{%url 'sing_up'%}" class="navigation-aunth">Sing Up</a>
+                    <a href="{%url 'sing_in'%}" id="button-sumbit">Sing in</a>
+                    <a href="{%url 'sing_up'%}" id="button-sumbit">Sing Up</a>
                 {%endif%}
             </div>
         </div>
