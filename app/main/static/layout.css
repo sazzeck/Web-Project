@@ -89,7 +89,7 @@ header {
     transition: all .5s ease;
 }
 
-.navigation-aunth, #button-cancel, #button-sumbit {
+.navigation-aunth, #button-sing_out, #button-sing_in, #button-sing_up {
     display: flex;
     align-items: center;
     background-color: #528073;
@@ -108,18 +108,6 @@ header {
     transition: all .5s ease;
 }
 
-#button-sumbit:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 15px rgba(46, 133, 51, 1);
-    background-color: #2e8533;
-}
-
-#button-cancel:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 15px rgb(136, 49, 49);
-    background-color: #883131;
-
-}
 .navigation-aunth:hover {
     transform: scale(1.1);
     box-shadow: 0 0 15px rgba(82, 128, 115, 1);
@@ -130,6 +118,24 @@ header {
     transform: scale(1.1);
     color: #528073;
     text-shadow: 0 0 15px rgba(82, 128, 115, 1);
+}
+
+#button-sing_out:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgb(150, 80, 80, 1);
+    background-color: rgb(150, 80, 80);
+}
+
+#button-sing_in:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(80, 130, 85, 1);
+    background-color: rgb(80, 130, 85);
+}
+
+#button-sing_up:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgb(65, 90, 115, 1);
+    background-color: rgb(65, 90, 115);
 }
 
 #main-div {
