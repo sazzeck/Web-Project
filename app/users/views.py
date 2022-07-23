@@ -3,14 +3,12 @@ from django.contrib.auth.views import LoginView
 from django.views.generic import CreateView
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from .forms import RegisterUserForm, LoginUserForm
+from .forms import SingInForm, SingUpForm
 
 
 # Create your views here.
-
-
-class LoginUser(LoginView):
-    form_class = LoginUserForm
+class SingInUser(LoginView):
+    form_class = SingInForm
     template_name = "login.html"
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -19,8 +17,8 @@ class LoginUser(LoginView):
         return context
 
 
-class RegisterUser(CreateView):
-    form_class = RegisterUserForm
+class SingUpUser(CreateView):
+    form_class = SingUpForm
     template_name = "registration.html"
     success_url = reverse_lazy("sing_in")
 

@@ -1,9 +1,10 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+
 from .models import CustomUser
 
 
-class RegisterUserForm(UserCreationForm):
+class SingUpForm(UserCreationForm):
     username = forms.CharField(
         label='Login',
         widget=forms.TextInput(attrs={'class': 'form-input'})
@@ -23,11 +24,10 @@ class RegisterUserForm(UserCreationForm):
             'username',
             'password1',
             'password2',
-            'type_user',
         )
 
 
-class LoginUserForm(AuthenticationForm):
+class SingInForm(AuthenticationForm):
     username = forms.CharField(
         label='Login',
         widget=forms.TextInput(attrs={'class': 'form-input'})
