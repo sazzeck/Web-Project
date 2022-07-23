@@ -1,3 +1,4 @@
+from 
 from main.models.week import DayOfTheWeekChoices
 from main.models.location import Location
 from main.models.schedule import Schedule
