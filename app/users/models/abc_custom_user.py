@@ -5,7 +5,7 @@ from django.utils import timezone
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin, UserManager
-from django.contrib.auth.validators import UnicodeUsernameValidator
+from django.contrib.auth.validators import ASCIIUsernameValidator
 
 
 class CustomUserManager(UserManager):
@@ -48,7 +48,7 @@ class CustomAbstractUser(AbstractBaseUser, PermissionsMixin):
         help_text=_(
             "Required. 50 characters or fewer. Letters, digits and @/./+/-/_ only. "
         ),
-        validators=[UnicodeUsernameValidator()],
+        validators=[ASCIIUsernameValidator()],
         error_messages={
             "unique": _("A user with that username already exists."),
         },

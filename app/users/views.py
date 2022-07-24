@@ -12,22 +12,22 @@ from .forms import SingInForm, SingUpForm
 # Create your views here.
 class SingInUser(LoginView):
     form_class = SingInForm
-    template_name = "login.html"
+    template_name = "sing_in.html"
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["title"] = "Login"
+        context["title"] = "Sing In"
         return context
 
 
 class SingUpUser(CreateView):
     form_class = SingUpForm
-    template_name = "registration.html"
+    template_name = "sing_up.html"
     success_url = reverse_lazy("sing_in")
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["title"] = "Registeration"
+        context["title"] = "Sing Up"
         return context
 
     def form_valid(self, form):
