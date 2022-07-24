@@ -3,7 +3,7 @@ from users.models import CustomAbstractUser
 from django.utils.translation import gettext_lazy as _
 
 
-class CustomUser(CustomAbstractUser):
+class Users(CustomAbstractUser):
     class UserType(models.TextChoices):
         WORKER = "W", _("Worker")
         CUSTOMER = "C", _("Customer")
@@ -14,10 +14,13 @@ class CustomUser(CustomAbstractUser):
         verbose_name=_("user type"),
     )
 
-    def __str__(self):
-        return f"{self.username} ({self.user_type})"
+    is_online = models.BooleanField(default=False)
 
     class Meta:
         db_table = "users"
         verbose_name = _("user")
         verbose_name_plural = _("users")
+        ordering = ["id", "is_online"]
+
+    def __str__(self):
+        return f"{self.username} ({self.user_type})" if self.user_type else self.username

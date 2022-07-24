@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
-from .models import CustomUser
+from .models import Users
 
 
 class SingUpForm(UserCreationForm):
@@ -19,7 +19,7 @@ class SingUpForm(UserCreationForm):
     )
 
     class Meta:
-        model = CustomUser
+        model = Users
         fields = (
             'username',
             'password1',

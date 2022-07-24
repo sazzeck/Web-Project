@@ -1,8 +1,11 @@
 from django.contrib.auth import logout, login
 from django.contrib.auth.views import LoginView
+from django.contrib.auth.signals import user_logged_in, user_logged_out
+from django.dispatch import receiver
 from django.views.generic import CreateView
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
+
 from .forms import SingInForm, SingUpForm
 
 
@@ -36,3 +39,15 @@ class SingUpUser(CreateView):
 def singout_user(request):
     logout(request)
     return redirect("main")
+
+
+@receiver(user_logged_in)
+def got_online(sender, user, request, **kwargs):
+    user.is_online = True
+    user.save()
+
+
+@receiver(user_logged_out)
+def got_offline(sender, user, request, **kwargs):
+    user.is_online = False
+    user.save()
