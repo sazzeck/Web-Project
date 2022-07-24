@@ -1,16 +1,21 @@
+from . import CustomUser
 from django.db import models
-from django.utils.translation import gettext_lazy as _
 
 
-class Customer(models.Model):
-    user = models.OneToOneField(
-        "users.CustomUser",
-        on_delete=models.CASCADE,
-        related_name="user_customer",
-        verbose_name="username"
-    )
+class CustomerManeger(models.Manager):
+
+    def get_queryset(self, *args, **kwargs):
+        return super().get_queryset(*args, **kwargs).filter(user_type=CustomUser.UserType.CUSTOMER)
+
+
+class Customer(CustomUser):
+
+    objects = CustomerManeger()
 
     class Meta:
-        db_table = "customers"
-        verbose_name = _("customer")
-        verbose_name_plural = _("customers")
+        proxy = True
+
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            self.user_type = CustomUser.UserType.CUSTOMER
+        return super().save(*args, **kwargs)

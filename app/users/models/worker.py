@@ -1,16 +1,21 @@
+from . import CustomUser
 from django.db import models
-from django.utils.translation import gettext_lazy as _
 
 
-class Worker(models.Model):
-    user = models.OneToOneField(
-        "users.CustomUser",
-        on_delete=models.CASCADE,
-        related_name="user_customer",
-        verbose_name="username",
-    )
+class WorkerManeger(models.Manager):
+
+    def get_queryset(self, *args, **kwargs):
+        return super().get_queryset(*args, **kwargs).filter(user_type=CustomUser.UserType.WORKER)
+
+
+class Worker(CustomUser):
+
+    objects = WorkerManeger()
 
     class Meta:
-        db_table = "workers"
-        verbose_name = _("worker")
-        verbose_name_plural = _("workers")
+        proxy = True
+
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            self.user_type = CustomUser.UserType.WORKER
+        return super().save(*args, **kwargs)

@@ -14,7 +14,7 @@ class SingUpForm(UserCreationForm):
         widget=forms.PasswordInput(attrs={'class': 'form-input'})
     )
     password2 = forms.CharField(
-        label='Repeat Password',
+        label='Confirm Password',
         widget=forms.PasswordInput(attrs={'class': 'form-input'})
     )
 
@@ -24,6 +24,7 @@ class SingUpForm(UserCreationForm):
             'username',
             'password1',
             'password2',
+            'user_type'
         )
 
 
