@@ -1,5 +1,5 @@
-from django.contrib.auth import logout, login
-from django.contrib.auth.views import LoginView
+from django.contrib.auth import login
+from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.signals import user_logged_in, user_logged_out
 from django.dispatch import receiver
 from django.views.generic import CreateView
@@ -33,6 +33,10 @@ class SingInUser(LoginView):
         return context
 
 
+class SingOutUser(LogoutView):
+    next_page = "main"
+
+
 class SingUpUser(CreateView):
     form_class = SingUpForm
     template_name = "sing_up.html"
@@ -47,11 +51,6 @@ class SingUpUser(CreateView):
         user = form.save()
         login(self.request, user)
         return redirect("main")
-
-
-def singout_user(request):
-    logout(request)
-    return redirect("main")
 
 
 @receiver(user_logged_in)
