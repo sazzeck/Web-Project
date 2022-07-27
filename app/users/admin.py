@@ -12,6 +12,7 @@ class UsersAdmin(ModelAdmin):
         "is_online",
         "is_active",
         "is_staff",
+        "last_login",
         "date_joined",
     )
 
@@ -24,6 +25,7 @@ class UsersAdmin(ModelAdmin):
         "is_online",
         "is_active",
         "is_staff",
+        "last_login",
     )
 
     list_editable = (
@@ -39,6 +41,7 @@ class WorkerAdmin(ModelAdmin):
     list_display = (
         "username",
         "is_online",
+        "last_login",
         "date_joined",
     )
 
@@ -48,6 +51,8 @@ class WorkerAdmin(ModelAdmin):
 
     list_filter = (
         "is_online",
+        "last_login",
+
     )
 
     show_full_result_count = True
@@ -58,6 +63,7 @@ class CustomerAdmin(ModelAdmin):
     list_display = (
         "username",
         "is_online",
+        "last_login",
         "date_joined",
     )
 
@@ -67,6 +73,7 @@ class CustomerAdmin(ModelAdmin):
 
     list_filter = (
         "is_online",
+        "last_login",
     )
 
     show_full_result_count = True

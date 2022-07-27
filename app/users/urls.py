@@ -5,4 +5,6 @@ urlpatterns = [
     path('sing_up', views.SingUpUser.as_view(), name="sing_up"),
     path('sing_in', views.SingInUser.as_view(), name="sing_in"),
     path("sing_out", views.singout_user, name="sing_out"),
+    path("users", views.UsersListView.as_view()),
+    path("users/<int:pk>", views.UserDetailView.as_view())
 ]

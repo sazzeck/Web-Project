@@ -6,10 +6,23 @@ from django.views.generic import CreateView
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 
+from rest_framework.generics import ListAPIView, RetrieveAPIView
+
 from .forms import SingInForm, SingUpForm
+from .models import Users
+from .serializers import UsersListSerializer, UsersDetailSerializer
 
 
-# Create your views here.
+class UsersListView(ListAPIView):
+    queryset = Users.objects.all()
+    serializers = UsersListSerializer
+
+
+class UserDetailView(RetrieveAPIView):
+    queryset = Users.objects.all()
+    serializer_class = UsersDetailSerializer
+
+
 class SingInUser(LoginView):
     form_class = SingInForm
     template_name = "sing_in.html"
