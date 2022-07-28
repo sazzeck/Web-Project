@@ -17,6 +17,11 @@ class SingUpForm(UserCreationForm):
         label='Confirm Password',
         widget=forms.PasswordInput(attrs={'class': 'form-input'})
     )
+    user_type = forms.ChoiceField(
+        label='User Type',
+        choices=Users.UserType.choices,
+        widget=forms.Select(attrs={'class': 'form-select'})
+    )
 
     class Meta:
         model = Users
