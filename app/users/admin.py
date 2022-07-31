@@ -1,8 +1,6 @@
 from django.contrib.admin import register, ModelAdmin
 from .models import Users, Worker, Customer
 
-# Register your models here.
-
 
 @register(Users)
 class UsersAdmin(ModelAdmin):

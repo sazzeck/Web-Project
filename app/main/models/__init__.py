@@ -1,11 +1,7 @@
-from main.models.week import DayOfTheWeekChoices
-from main.models.location import Location
-from main.models.schedule import Schedule
-from main.models.service import Service
+from .location import Location, WorkersLocation
+
 
 __all__ = [
-    "DayOfTheWeekChoices",
     "Location",
-    "Schedule",
-    "Service",
+    "WorkersLocation",
 ]

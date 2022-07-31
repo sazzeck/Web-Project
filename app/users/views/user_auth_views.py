@@ -1,26 +1,14 @@
-from django.contrib.auth import login
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.signals import user_logged_in, user_logged_out
-from django.dispatch import receiver
+from django.contrib.auth import login
+
 from django.views.generic import CreateView
+
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
+from django.dispatch import receiver
 
-from rest_framework.generics import ListAPIView, RetrieveAPIView
-
-from .forms import SingInForm, SingUpForm
-from .models import Users
-from .serializers import UsersListSerializer, UsersDetailSerializer
-
-
-class UsersListView(ListAPIView):
-    queryset = Users.objects.all()
-    serializers = UsersListSerializer
-
-
-class UserDetailView(RetrieveAPIView):
-    queryset = Users.objects.all()
-    serializer_class = UsersDetailSerializer
+from users.forms import SingInForm, SingUpForm
 
 
 class SingInUser(LoginView):
@@ -29,7 +17,7 @@ class SingInUser(LoginView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["title"] = "Sing In"
+        context["title"] = "Account"
         return context
 
 
@@ -44,7 +32,7 @@ class SingUpUser(CreateView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["title"] = "Sing Up"
+        context["title"] = "Account"
         return context
 
     def form_valid(self, form):

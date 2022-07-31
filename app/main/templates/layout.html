@@ -20,6 +20,7 @@
                 {%if request.user.is_authenticated%}
                     <ul class="navigation-menu">
                         <li><p>{{user.username}}</p></li>
+                        <li><a href="#">Profile</li>
                     </ul>
                     <a href="{%url 'sing_out'%}" id="button-sing_out">Sing out</a>
                 {%else%}

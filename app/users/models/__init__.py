@@ -1,7 +1,7 @@
-from users.models.abc_custom_user import CustomAbstractUser
-from users.models.user import Users
-from users.models.customer import Customer
-from users.models.worker import Worker
+from .abc_custom_user import CustomAbstractUser
+from .user import Users
+from .customer import Customer
+from .worker import Worker
 
 
 __all__ = [
