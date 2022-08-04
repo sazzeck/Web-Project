@@ -13,12 +13,16 @@ from users.forms import SingInForm, SingUpForm
 
 class SingInUser(LoginView):
     form_class = SingInForm
-    template_name = "sing_in.html"
+    template_name = "users/sing_in.html"
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["title"] = "Account"
+        context["title"] = "Sing In"
+        context["navbar_title"] = "Home"
         return context
+
+    def get_success_url(self):
+        return reverse_lazy("main")
 
 
 class SingOutUser(LogoutView):
@@ -27,12 +31,13 @@ class SingOutUser(LogoutView):
 
 class SingUpUser(CreateView):
     form_class = SingUpForm
-    template_name = "sing_up.html"
+    template_name = "users/sing_up.html"
     success_url = reverse_lazy("sing_in")
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["title"] = "Account"
+        context["title"] = "Sing Up"
+        context["navbar_title"] = "Home"
         return context
 
     def form_valid(self, form):

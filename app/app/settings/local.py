@@ -1,6 +1,6 @@
 from app.settings.settings import *
 
-from utils.config import Config
+from utils import Config
 
 
 # Quick-start development settings - unsuitable for production

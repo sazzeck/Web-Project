@@ -1,7 +1,8 @@
-from .location import Location, WorkersLocation
+from .location import Location
+from .schedule import Schedule
 
 
 __all__ = [
     "Location",
-    "WorkersLocation",
+    "Schedule",
 ]

@@ -9,32 +9,10 @@ class Location(models.Model):
     )
 
     class Meta:
-        verbose_name = _('Location')
-        verbose_name_plural = _('Locations')
+        db_table = "locations"
+        ordering = ["id"]
+        verbose_name = _("Location")
+        verbose_name_plural = _("Location's")
 
     def __str__(self):
         return self.name
-
-
-class WorkersLocation(models.Model):
-    worker = models.ManyToManyField(
-        "users.Worker",
-        related_name="workers",
-        verbose_name=_("Worker"),
-    )
-
-    location = models.ForeignKey(
-        "Location",
-        on_delete=models.CASCADE,
-        related_name="workers_location",
-        verbose_name=_("Location"),
-    )
-
-    class Meta:
-        db_table = "workers_location"
-        ordering = ["location"]
-        verbose_name = _("Worker's Location")
-        verbose_name_plural = _("Worker's Location")
-
-    def __str__(self):
-        return f"{self.location}"

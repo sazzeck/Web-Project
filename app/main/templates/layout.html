@@ -15,7 +15,7 @@
 <header>
     <nav id="navigation">
         <div class="container">
-            <a href="{%url 'main'%}" class="navigation-title">{{title}}</a>
+            <a href="{%url 'main'%}" class="navigation-title">{{navbar_title}}</a>
             <div class="navigation-wrap">
                 {%if request.user.is_authenticated%}
                     <ul class="navigation-menu">
