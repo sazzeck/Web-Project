@@ -35,7 +35,7 @@ class SingUpForm(UserCreationForm):
 
 class SingInForm(AuthenticationForm):
     username = forms.CharField(
-        label='Login',
+        label='Username',
         widget=forms.TextInput(attrs={'class': 'form-input'})
     )
     password = forms.CharField(

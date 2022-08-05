@@ -1,7 +1,6 @@
 import os
-
+import sys
 from pathlib import Path
-
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -12,12 +11,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 STATIC_URL = "/static/"
 MEDIA_URL = "/media/"
 
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+if sys.argv[1] != 'runserver':
+    STATICFILES_DIRS = [
+        os.path.join(BASE_DIR, "static"),
+        os.path.join(BASE_DIR, "users/static"),
+        os.path.join(BASE_DIR, "main/static"),
+    ]
+else:
+    STATIC_ROOT = os.path.join(BASE_DIR, "static")
+    MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "main/static"),
-]
 
 # Application definition
 
@@ -79,6 +82,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+LOGIN_URL = "sing_in"
 
 LOGIN_REDIRECT_URL = "/"
 

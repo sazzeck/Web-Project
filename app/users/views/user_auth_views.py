@@ -17,8 +17,6 @@ class SingInUser(LoginView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["title"] = "Sing In"
-        context["navbar_title"] = "Home"
         return context
 
     def get_success_url(self):
@@ -36,8 +34,6 @@ class SingUpUser(CreateView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["title"] = "Sing Up"
-        context["navbar_title"] = "Home"
         return context
 
     def form_valid(self, form):

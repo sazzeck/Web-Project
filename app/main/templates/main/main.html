@@ -1,4 +1,14 @@
 {%extends 'layout.html'%}
 
 {%block content%}
+    <header>
+        <nav id="navigation">
+            <div class="container">
+                <a href="{%url 'main'%}" class="navigation-title">{{navbar_title}}</a>
+                <div class="navigation-wrap">
+                    <a href="{%url 'sing_out'%}" id="button-sing_out">Sing out</a>
+                </div>
+            </div>
+        </nav>
+    </header>
 {%endblock%}

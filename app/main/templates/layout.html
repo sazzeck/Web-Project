@@ -12,28 +12,13 @@
 </head>
 
 <body>
-<header>
-    <nav id="navigation">
-        <div class="container">
-            <a href="{%url 'main'%}" class="navigation-title">{{navbar_title}}</a>
-            <div class="navigation-wrap">
-                {%if request.user.is_authenticated%}
-                    <ul class="navigation-menu">
-                        <li><p>{{user.username}}</p></li>
-                        <li><a href="#">Profile</li>
-                    </ul>
-                    <a href="{%url 'sing_out'%}" id="button-sing_out">Sing out</a>
-                {%else%}
-                    <a href="{%url 'sing_in'%}" id="button-sing_in">Sing in</a>
-                    <a href="{%url 'sing_up'%}" id="button-sing_up">Sing Up</a>
-                {%endif%}
-            </div>
-        </div>
-    </nav>
-</header>
-    <div id="main-div">
-        {%block content%}{%endblock%}
-    </div>
+    <div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+     </div>
+    {%block content%}
+    {%endblock%}
 </body>
 
 </html>
