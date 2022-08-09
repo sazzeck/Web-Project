@@ -13,9 +13,8 @@ MEDIA_URL = "/media/"
 
 if sys.argv[1] != 'runserver':
     STATICFILES_DIRS = [
-        os.path.join(BASE_DIR, "static"),
-        os.path.join(BASE_DIR, "users/static"),
         os.path.join(BASE_DIR, "main/static"),
+        os.path.join(BASE_DIR, "users/static"),
     ]
 else:
     STATIC_ROOT = os.path.join(BASE_DIR, "static")
@@ -51,7 +50,10 @@ ROOT_URLCONF = "app.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, "templates")],
+        "DIRS": [
+            os.path.join(BASE_DIR, "app/templates"),
+            os.path.join(BASE_DIR, "templates"),
+        ],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [

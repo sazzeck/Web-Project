@@ -1,21 +1,29 @@
-{%extends 'layout.html'%}
+{%extends 'index.html'%}
+
+{%load static%}
+
+{%block extrahead%}
+<link rel="stylesheet" href="{%static 'users/register.css'%}">
+{%endblock%}
 
 {%block content%}
 
-<div class="auth">
-    <div class="auth-label"><h1>Registration</h1></div>
-    <form method="post">
-
-        {%csrf_token%}
-        
-        {%for f in form%}
-            <div class="form-group"><lable class="form-label" for="{{f.id_for_label}}">{{f.label}}: </lable>{{f}}</div>
-        {%endfor%}
-        <button class="submit-button" type="submit">Sing Up</button>
-
-        <p class="account">Have an account? <a href="{% url 'sing_in' %}">Login</a></p>
-    </form>
-
+<div class="auth-wrapper">
+    <div class="auth-header">
+        <h1 class="auth-header-title">Create Account</h1>
+    </div>
+    <div class="auth-content">
+        <form method="post">
+            {%csrf_token%}
+            {%for f in form%}
+                <div class="auth-form-group"><lable class="auth-form-label" for="{{f.id_for_label}}">{{f.label}}:</lable>{{f}}</div>
+            {%endfor%}
+            <button class="submit-button" type="submit">Sing In</button>
+        </form>
+    </div>
+    <div class="auth-footer">
+        <a href="{%url 'sing_in'%}">Sing In</a>
+    </div>
 </div>
 
 {%endblock%}
